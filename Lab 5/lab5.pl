@@ -60,6 +60,7 @@ num(1).
 num(X) :- num(Y), X is Y + 1.
 
 % Gets all the solutions
+% Best solution is 17 minutes
 getSolutions(Moves, T) :- 
     num(T),
     solution([nc,nc,nc,nc,nc], Moves, T).
