@@ -22,9 +22,9 @@ I implemented the following predicates:
 * `move(C1,S,C2)` which states that configuration C1 leads to C2 if the students S cross the bridge.
 * `solution(C,L,T)` which states that applying the list of moves L to the configuration C leads to a solution in T minutes.
 * `num(X)` which returns numbers 1 through infinity.
-* `getSolutions(M,T)` which states that all moves M lead to a solution in T minutes.
+* `puzzle(X,T)` which states that all moves X lead to a solution in T minutes.
 
-To run the riddle and see the possible solutions, import the file and enter `getSolutions(Moves,Time).`\
+To run the riddle and see the possible solutions, import the file and enter `puzzle(Moves,Time).`\
 Each solution will be printed individually, which includes the moves taken and the total time.
 
 Source code can be found in `/Lab 5/lab5.pl`.
