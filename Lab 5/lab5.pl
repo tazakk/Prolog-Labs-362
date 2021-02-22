@@ -22,26 +22,25 @@ change(c,nc).	% go back
 % The different moves
 % move(C1,S,C2) stating that configuration C1 leads to C2 if the S students cross the bridge
 % Configuration: [Adam, Brianna, Me, Charlotte, the light]
-
-% Adam and Brianna move
+% 1. Adam and Brianna move
 move([X,X,M,C,X],[adam,brianna],[Y,Y,M,C,Y]) :- change(X,Y).
-% Adam and I move
+% 2. Adam and I move
 move([X,B,X,C,X],[adam,me],[Y,B,Y,C,Y]) :- change(X,Y).
-% Adam and Charlotte move
+% 3. Adam and Charlotte move
 move([X,B,M,X,X],[adam,charlotte],[Y,B,M,Y,Y]) :- change(X,Y).
-% Adam moves alone
+% 4. Adam moves alone
 move([X,B,M,C,X],[adam,nobody],[Y,B,M,C,Y]) :- change(X,Y).
-% Brianna and I move
+% 5. Brianna and I move
 move([A,X,X,C,X],[brianna,me],[A,Y,Y,C,Y]) :- change(X,Y).
-% Brianna and Charlotte move
+% 6. Brianna and Charlotte move
 move([A,X,M,X,X],[brianna,charlotte],[A,Y,M,Y,Y]) :- change(X,Y).
-% Brianna moves alone
+% 7. Brianna moves alone
 move([A,X,M,C,X],[brianna,nobody],[A,Y,M,C,Y]) :- change(X,Y).
-% Charlotte and I move
+% 8. Charlotte and I move
 move([A,B,X,X,X],[me,charlotte],[A,B,Y,Y,Y]) :- change(X,Y).
-% I move alone
+% 9. I move alone
 move([A,B,X,C,X],[me,nobody],[A,B,Y,C,Y]) :- change(X,Y).
-% Charlotte moves alone
+% 10. Charlotte moves alone
 move([A,B,M,X,X],[charlotte,nobody],[A,B,M,Y,Y]) :- change(X,Y).
 
 % Get the solution
@@ -50,17 +49,16 @@ move([A,B,M,X,X],[charlotte,nobody],[A,B,M,Y,Y]) :- change(X,Y).
 solution([c,c,c,c,c], [], _).	% base case: once everyone has crossed the bridge
 solution(CurrentCon, [Move|NextMove], Time) :-
     move(CurrentCon, Move, NextCon),
-    time(Move, NewTime),
-    FullTime is Time - NewTime,
-    FullTime >= 0,
-    solution(NextCon, NextMove, FullTime).
+    time(Move, NewT),
+    FullT is Time - NewT,
+    FullT >= 0,
+    solution(NextCon, NextMove, FullT).
 
 % Generates numbers
 num(1).
 num(X) :- num(Y), X is Y + 1.
 
-% Gets all the solutions
-% Best solution is 17 minutes
-getSolutions(Moves, T) :- 
-    num(T),
-    solution([nc,nc,nc,nc,nc], Moves, T).
+% Generates the possible solutions, starting with the best
+puzzle(Moves,Time) :-
+	num(Time),
+    solution([nc,nc,nc,nc,nc],Moves,Time).
